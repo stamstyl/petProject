@@ -43,6 +43,7 @@ export class VacancyPage {
       }, countryName);
     }
   }
+  
   async getNumber(number) {
     await this.phoneNumber.click();
     await this.phoneNumber.press("End");
