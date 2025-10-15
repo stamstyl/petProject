@@ -9,12 +9,14 @@ test.beforeEach(async ({ page }) => {
   vacancyPage = new VacancyPage(page);
 
   await page.goto("/envida-kiest-voor-ysis-2/");
-  await homePage.qaJobApply();
+  await homePage.goToJobVacanciesPage();
 
   await expect(vacancyPage.vacancyTitle).toContainText("Test");
 });
 
-test("Find a QA/Automation vacancy and fill it with random data", async ({page,}) => {
+test("Find a QA/Automation vacancy and fill it with random data", async ({
+  page,
+}) => {
   const { faker } = await import("@faker-js/faker");
 
   const name = faker.person.fullName();
@@ -33,10 +35,12 @@ test("Find a QA/Automation vacancy and fill it with random data", async ({page,}
   await input.setInputFiles("blank.pdf");
 });
 
-test("Find a QA/Automation and Apply with empty fields", async ({page,}) => {
+test("Find a QA/Automation and Apply with empty fields", async ({
+  page,
+}) => {
   const errorMessage = "This field is required and can not be left empty.";
 
-  await vacancyPage.sendButton.waitFor({ state: "visible" });
+  await vacancyPage.sendButton.waitFor({ state: "attached" });
   await vacancyPage.sendButton.click();
 
   await expect(vacancyPage.fullNameFieldRequired).toHaveText(errorMessage);

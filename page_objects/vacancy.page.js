@@ -9,12 +9,11 @@ export class VacancyPage {
     this.countryCallingCode = page.getByRole("button", {name: "Select country calling code:"});
     this.phoneNumber = page.locator('[type="tel"]');
     this.uploadCV = page.locator('[name="candidate.cv"]');
-    this.sendButton = page.locator('[type="submit"]');
+    this.sendButton = page.locator('[data-testid="submit-application-form-button"]');
     this.fullNameFieldRequired = page.locator('[placeholder="Full name"] + [role="alert"]');
     this.emailAddressFieldRequired = page.locator('[placeholder="Your email address"] + [role="alert"]');
     this.phoneNumberFieldRequired = page.locator('[id="input-candidate.phone-6-error"]');
     this.uploadCVFieldRequired = page.locator('[id="input-candidate.cv-10-error"]');
-
   }
 
   async selectCountry(countryName) {
