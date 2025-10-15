@@ -1,14 +1,27 @@
 export class HomePage {
   constructor(page) {
     this.page = page;
-    this.goToVacanciesPage = page.locator('[class="texts"] [href="http://Gerimedica.recruitee.com"]');
-    this.qaJobs = page.locator('[class*="sc-6exb5d-3"] [href="/o/software-test-engineer-juniormedior"]');
-    this.applyButton = page.getByRole('tab' , { name: 'Apply' } );
+    this.goToVacanciesPage = page.getByRole("link", { name: "vacancies" });
+    this.qaJobs = page.getByRole("link", {
+      name: "Software Test Engineer (Junior/Medior)",
+    });
+    this.applyButton = page.locator('[data-testid="header-tab-apply-button"]');
   }
 
-  async qaJobApply() {
+  async goToJobVacanciesPage() {
+    await this.goToVacanciesPage.waitFor({ state: "visible" });
     await this.goToVacanciesPage.click();
-    await this.qaJobs.click(); 
+    await this.goToFindSpecificQaJobPage();
+  }
+  async goToFindSpecificQaJobPage() {
+    await this.page.waitForLoadState();
+    await this.qaJobs.waitFor({ state: "visible" });
+    await this.qaJobs.click();
+    await this.goToapplyForQaJobVacancyPage();
+  }
+  async goToapplyForQaJobVacancyPage() {
+    await this.page.waitForLoadState();
+    await this.applyButton.waitFor({ state: "visible" });
     await this.applyButton.click();
   }
 }
