@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { HomePage } from "../../page_objects/home.page";
 import { VacancyPage } from "../../page_objects/vacancy.page";
+import { faker } from '@faker-js/faker';
 
 let homePage, vacancyPage;
 
@@ -14,10 +15,7 @@ test.beforeEach(async ({ page }) => {
   await expect(vacancyPage.vacancyTitle).toContainText("Test");
 });
 
-test("Find a QA/Automation vacancy and fill it with random data", async ({
-  page,
-}) => {
-  const { faker } = await import("@faker-js/faker");
+test("Find a QA/Automation vacancy and fill it with random data", async ({page,}) => {
 
   const name = faker.person.fullName();
   const email = faker.internet.email();
@@ -27,6 +25,7 @@ test("Find a QA/Automation vacancy and fill it with random data", async ({
   for (let i = 0; i < 7; i++) {
     randomDigits += Math.floor(Math.random() * 10);
   }
+  await page.waitForLoadState();
   await vacancyPage.fullName.waitFor({ state: "visible" });
   await vacancyPage.fullName.fill(name);
   await vacancyPage.emailAddress.fill(email);
@@ -35,11 +34,10 @@ test("Find a QA/Automation vacancy and fill it with random data", async ({
   await input.setInputFiles("blank.pdf");
 });
 
-test("Find a QA/Automation and Apply with empty fields", async ({
-  page,
-}) => {
+test("Find a QA/Automation and Apply with empty fields", async ({page}) => {
   const errorMessage = "This field is required and can not be left empty.";
 
+  await page.waitForLoadState();
   await vacancyPage.sendButton.waitFor({ state: "attached" });
   await vacancyPage.sendButton.click();
 
