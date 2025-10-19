@@ -29,8 +29,14 @@ export default defineConfig({
     baseURL: 'https://www.gerimedica.nl/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+// Capture screenshot after each test failure.
+    screenshot: 'only-on-failure',
+
+    // Record trace only when retrying a test for the first time.
     trace: 'on-first-retry',
-  },
+
+    // Record video only when retrying a test for the first time.
+    video: 'on-first-retry'  },
 
   /* Configure projects for major browsers */
   projects: [
@@ -39,15 +45,15 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
